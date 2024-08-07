@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/07 21:20:23 by mabdessm         ###   ########.fr       */
+/*   Created: 2024/05/07 13:34:52 by mabdessm          #+#    #+#             */
+/*   Updated: 2024/08/07 19:32:18 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../includes/so_long.h"
 
-# include "../.minilibx-linux/mlx.h"
-# include "../printf/ft_printf.h"
-# include "../getnextline/get_next_line.h"
+int	ft_putnbr_base(unsigned int nbr, char *base)
+{
+	int	i;
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <string.h>
-
-#endif
+	i = 0;
+	if (nbr >= (unsigned int)ft_strlen(base))
+	{
+		i += ft_putnbr_base(nbr / (unsigned int)ft_strlen(base), base);
+		i += ft_putnbr_base(nbr % (unsigned int)ft_strlen(base), base);
+	}
+	if (nbr >= 0 && nbr < (unsigned int)ft_strlen(base))
+		i += ft_putchar(base[nbr]);
+	return (i);
+}

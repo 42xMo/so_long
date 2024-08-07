@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putunsigned.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/07 21:20:23 by mabdessm         ###   ########.fr       */
+/*   Created: 2024/05/07 16:16:09 by mabdessm          #+#    #+#             */
+/*   Updated: 2024/05/08 16:57:54 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "ft_printf.h"
 
-# include "../.minilibx-linux/mlx.h"
-# include "../printf/ft_printf.h"
-# include "../getnextline/get_next_line.h"
+int	ft_putunsigned(unsigned int n)
+{
+	int	i;
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <string.h>
-
-#endif
+	i = 0;
+	if (n > 9)
+	{
+		i += ft_putunsigned(n / 10);
+		i += ft_putunsigned(n % 10);
+	}
+	else if (n <= 9 && n >= 0)
+		i += ft_putchar('0' + n);
+	return (i);
+}

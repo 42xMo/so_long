@@ -6,17 +6,20 @@
 #    By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/04 14:55:29 by mabdessm          #+#    #+#              #
-#    Updated: 2024/08/07 16:57:39 by mabdessm         ###   ########.fr        #
+#    Updated: 2024/08/07 20:31:45 by mabdessm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 CC = cc
 FLAGS = -Wall -Werror -Wextra -Iincludes -fsanitize=address
-MLXFLAGS = -lmlx -lXext -lX11
+MLXFLAGS = -L./minilibx-linux -lmlx -lXext -lX11
 RM = rm -rf
 
-SRCS = solong/so_long.c
+SRCS = getnextline/get_next_line.c getnextline/get_next_line_utils.c \
+		printf/ft_printf.c printf/ft_putchar.c printf/ft_putnbr_base.c \
+		printf/ft_putnbr_base_p.c printf/ft_putnbr.c printf/ft_putstr.c printf/ft_putunsigned.c \
+		solong/so_long.c
 
 OBJS = $(SRCS:.c=.o)
 

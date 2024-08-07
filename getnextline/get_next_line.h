@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/07 21:20:23 by mabdessm         ###   ########.fr       */
+/*   Created: 2024/05/08 19:07:50 by mabdessm          #+#    #+#             */
+/*   Updated: 2024/08/07 19:19:51 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include "../.minilibx-linux/mlx.h"
-# include "../printf/ft_printf.h"
-# include "../getnextline/get_next_line.h"
-
-# include <fcntl.h>
-# include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include <string.h>
+# include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
+unsigned int	ft_strlen(const char *str);
+char			*ft_strdup(const char *s);
+char			*ft_strchr(const char *s, int c);
+char			*ft_substr(char const *s, unsigned int start, size_t len);
+char			*ft_strjoin(char const *s1, char const *s2);
+char			*get_next_line(int fd);
 
 #endif
