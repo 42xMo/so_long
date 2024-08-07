@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/04 17:47:43 by mabdessm         ###   ########.fr       */
+/*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
+/*   Updated: 2024/08/07 16:44:09 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-
-#include "../.minilibx-linux/mlx.h"
-
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
-#endif
+int	main()
+{
+	int test = 2;
+	
+	printf("%i", test);
+}
