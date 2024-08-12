@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/07 21:20:23 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/12 00:03:15 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,11 @@
 # include <stdio.h>
 # include <string.h>
 
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
+
+int	count_words(char const *s, char c);
+int	len_word(char const *s, char c, int index);
+char	*get_word(char const *s, char c, int index);
+char	**ft_split(char const *s, char c);
 #endif
