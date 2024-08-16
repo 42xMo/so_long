@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/12 05:21:08 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:38:18 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ unsigned int	ft_strstrlen(char **str)
 	return (i);
 }
 
-int	E_P_C_error(int exit, int start, int collectible)
+int	e_p_c_error(int exit, int start, int collectible)
 {
 	if (start != 1)
 	{
@@ -73,7 +73,7 @@ int	E_P_C_error(int exit, int start, int collectible)
 	return (0);
 }
 
-int	invalid_E_P_C(char **map)
+int	invalid_e_p_c(char **map)
 {
 	int	exit;
 	int	start;
@@ -98,7 +98,7 @@ int	invalid_E_P_C(char **map)
 				++collectible;
 		}
 	}
-	return (E_P_C_error(exit, start, collectible));
+	return (e_p_c_error(exit, start, collectible));
 }
 
 int	invalid_character(char c)
@@ -107,6 +107,7 @@ int	invalid_character(char c)
 		return (1);
 	return (0);
 }
+
 int	no_map_errors(char **map)
 {
 	unsigned int	i;
@@ -131,15 +132,53 @@ int	no_map_errors(char **map)
 			}
 		}
 		if (map[i][0] != '1' || map[i][ft_strlen(map[i]) - 1] != '1')
-			return(return_error("Map is missing outter walls!"));
+			return (return_error("Map is missing outter walls!"));
 	}
-	return (!(invalid_E_P_C(map)));
+	return (!(invalid_e_p_c(map)));
+}
+
+int	no_path_to_p(char **tab, t_point size, t_point begin)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	flood_fill(tab, size, begin);
+
+	// ft_printf("%i %i %i %i", size.x, size.y, begin.x, begin.y);
+	// ft_printf("\n");
+	// while (++i < size.y)
+	// 	ft_printf("%s\n", tab[i]);
+
+	i = -1;
+	while (++i < size.y)
+	{
+		j = -1;
+		while (++j < size.x)
+		{
+			if (tab[i][j] == 'P')
+				return (1);
+		}
+	}
+	return (0);
 }
 
 int	valid_paths(char **map)
 {
-	int	i;
-	int	j;
+	unsigned int	i;
+	unsigned int	j;
+	char			**temp;
+	t_point			size;
+	t_point			begin;
+
+	size.x = ft_strlen(map[0]);
+	size.y = ft_strstrlen(map);
+	temp = make_area(map, size);
+
+	// ft_printf("\n");
+	// i = -1;
+	// while (++i < (unsigned int)size.y)
+	// 	ft_printf("%s\n", temp[i]);
 
 	i = -1;
 	while (map && map[++i])
@@ -147,12 +186,28 @@ int	valid_paths(char **map)
 		j = -1;
 		while (map[i][++j])
 		{
+			if (map[i][j] == 'E')
+			{
+				begin.x = j;
+				begin.y = i;
+				if (no_path_to_p(temp, size, begin))
+					return (return_error("No valid exit path!"));
+			}
+			if (map[i][j] == 'C')
+			{
+				begin.x = j;
+				begin.y = i;
+				if (no_path_to_p(temp, size, begin))
+					return (return_error("No valid collectibles path!"));
+				else
+					temp = make_area(map, size);
+			}
 		}
 	}
 	return (1);
 }
 
-int		empty_lines_in_map(char *buffer)
+int	empty_lines_in_map(char *buffer)
 {
 	int	i;
 
@@ -167,6 +222,7 @@ int		empty_lines_in_map(char *buffer)
 	}
 	return (0);
 }
+
 char	**file_errors(int fd, char *file)
 {
 	if (fd < 0)
@@ -221,44 +277,13 @@ void	draw_map(char **map)
 
 int	main(int argc, char **argv)
 {
-	char **map;
-	
+	char	**map;
+
 	if (argc == 2)
 	{
 		map = check_errors(argv[1]);
-		draw_map(map);
+		//draw_map(map);
 	}
 	else
 		return_error("Invalid number of arguments!");
 }
-
-/*MAP PARSING*/
-//error if open fails														DONE
-//error if the file doesnt end in .ber	 									DONE
-//error if file is empty													DONE
-//the map must be surrounded by walls otherwise return an error				DONE
-//the map can only be composed of 0 for empty space, 1 for a wall, C for	DONE
-//a collectible, E for a map exit and P for the player start position		DONE
-//the map must be rectangular												DONE
-//error if empty line in beetween or at the start of the map				DONE
-//for me i decided to accept if the map has a \n at the end of every line	DONE
-//even the last one, i dont accept \n at the start or two consecutive \n	DONE
-//a valid map has 1 exit, 1 starting position and at least 1 collectible	DONE
-//if the map has duplicate (more than 1) exit or start,display an error		DONE
-
-//error if no path to exit or/and to collectibles						
-//error msg if no path to collectibles = "no valid path to one or multiple 
-//collectibles" (cool if i can say how many but not necessary)
-//error msg if no path to exit = "no valid path to exit"
-
-
-//You must be able to parse any kind of map, as long as it respects the above rules.
-
-//If any misconfiguration of any kind is encountered in the file, the program
-//must exit in a clean way, and return "Error\n" followed by an explicit error 
-//message of your choice.
-//examples of errors/msgs : an unknown character, duplicates, an invalid file path...
-
-//if a malloc fails the error is 'memory allocation error'
-
-//favourite function : invalid_E_P_C because it's goofy

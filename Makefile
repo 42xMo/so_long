@@ -6,7 +6,7 @@
 #    By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/04 14:55:29 by mabdessm          #+#    #+#              #
-#    Updated: 2024/08/12 05:34:10 by mabdessm         ###   ########.fr        #
+#    Updated: 2024/08/17 00:23:52 by mabdessm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS = getnextline/get_next_line.c getnextline/get_next_line_utils.c \
 		printf/ft_printf.c printf/ft_putchar.c printf/ft_putnbr_base.c \
 		printf/ft_putnbr_base_p.c printf/ft_putnbr.c printf/ft_putstr.c \
 		printf/ft_putunsigned.c solong/so_long.c solong/ft_split.c \
-		solong/ft_calloc.c
+		solong/ft_calloc.c solong/ft_flood_fill.c
 
 OBJS = $(SRCS:.c=.o)
 
