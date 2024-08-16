@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 00:57:43 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:45:41 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ typedef struct s_point
 
 void	fill(char **tab, t_point size, t_point cur, char to_fill);
 void	flood_fill(char **tab, t_point size, t_point begin);
-char	**make_area(char** zone, t_point size);
+char	**make_area(char **zone, t_point size);
 
 #endif
