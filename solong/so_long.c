@@ -6,11 +6,21 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 02:15:38 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 03:51:22 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+//for testing
+void	draw_map(char **map)
+{
+	int	i;
+
+	i = -1;
+	while (map && map[++i])
+		ft_printf("%s\n", map[i]);
+}
 
 int	return_error(char *str)
 {
@@ -256,15 +266,6 @@ char	**check_errors(char *file)
 	if (no_map_errors(map) && valid_paths(map))
 		return (map);
 	return (NULL);
-}
-
-void	draw_map(char **map)
-{
-	int	i;
-
-	i = -1;
-	while (map && map[++i])
-		ft_printf("%s\n", map[i]);
 }
 
 int	main(int argc, char **argv)
