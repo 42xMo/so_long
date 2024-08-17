@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 06:37:14 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 07:11:20 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ft_free_tab(char **str)
 	int	i;
 
 	i = -1;
+	if (!str)
+		return ;
 	while (str[++i])
 		free (str[i]);
 	free (str);
@@ -214,7 +216,10 @@ int	check_paths(char **map, char **temp, t_point size)
 			{
 				if (no_path_to_p(temp, size, j, i))
 					return (free_and_return(temp, 'c'));
-				temp = make_area(map, size);
+ 				ft_free_tab(temp);
+                temp = make_area(map, size);
+				if (!temp)
+					return (return_error("Memory allocation failed!"));
 			}
 		}
 	}
@@ -233,11 +238,7 @@ int	valid_paths(char **map)
 	if (!temp)
 		return (0);
 	if (!check_paths(map, temp, size))
-	{
-		ft_free_tab(temp);
 		return (0);
-	}
-	ft_free_tab(temp);
 	return (1);
 }
 
@@ -271,7 +272,10 @@ char	**buffer_errors(char *buffer)
 	if (!buffer)
 		return_error("File is empty!");
 	else if (empty_lines_in_map(buffer))
+	{
+		free (buffer);
 		return_error("Map contains an empty line!");
+	}
 	return (NULL);
 }
 
@@ -287,8 +291,8 @@ char	**check_errors(char *file)
 	if (fd < 0 || invalid_file(file))
 		return (file_errors(fd, file));
 	buffer = get_next_line(fd);
-    // if (!buffer)
-    //     return (buffer_errors(NULL));
+    if (!buffer)
+		return (buffer_errors(NULL));
 	temp = get_next_line(fd);
 	while (temp)
 	{
@@ -300,15 +304,12 @@ char	**check_errors(char *file)
 	}
 	close(fd);
 	if (!buffer || empty_lines_in_map(buffer))
-	{
-		//free(buffer);
 		return (buffer_errors(buffer));
-	}
 	map = ft_split(buffer, '\n');
 	free(buffer);
-	// free(temp);
 	if (no_map_errors(map) && valid_paths(map))
 		return (map);
+	ft_free_tab(map);
 	return (NULL);
 }
 
@@ -323,11 +324,6 @@ int	main(int argc, char **argv)
 			return (0);
 		draw_map(map);
 		ft_free_tab(map);
-		//241 byte(s) leaked in 1 allocation(s) for empty line at start and beetween
-		//241 byte(s) leaked in 1 allocation(s) for 2 empty line at end
-		//108 byte(s) leaked in 6 allocation(s) for no collectible path
-		//216 byte(s) leaked in 12 allocation(s) for no exit path
-		//leaks for big maps but not small maps
 	}
 	else
 		return (return_error("Invalid number of arguments!"));
