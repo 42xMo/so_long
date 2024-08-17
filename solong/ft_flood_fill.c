@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 23:34:14 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 01:47:28 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 02:03:42 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**make_area(char **zone, t_point size)
 
 	size.x = 13;
 	size.y = 5;
-	
+
 	char *zone[] = {
 		"1111111111111",
 		"10010000000C1",
@@ -68,18 +68,13 @@ char	**make_area(char **zone, t_point size)
 		"1P0011E000001",
 		"1111111111111",
 	};
-	
 	area = make_area(zone, size);
-	
 	for (int i = 0; i < size.y; ++i)
 		printf("%s\n", area[i]);
 	printf("\n");
-
 	begin.x = 11;
 	begin.y = 1;
 	flood_fill(area, size, begin);
-
-
 	for (int i = 0; i < size.y; ++i)
 		printf("%s\n", area[i]);
 

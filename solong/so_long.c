@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 01:38:18 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 02:15:38 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,19 +137,15 @@ int	no_map_errors(char **map)
 	return (!(invalid_e_p_c(map)));
 }
 
-int	no_path_to_p(char **tab, t_point size, t_point begin)
+int	no_path_to_p(char **tab, t_point size, unsigned int x, unsigned int y)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_point	begin;
 
-	i = -1;
+	begin.x = x;
+	begin.y = y;
 	flood_fill(tab, size, begin);
-
-	// ft_printf("%i %i %i %i", size.x, size.y, begin.x, begin.y);
-	// ft_printf("\n");
-	// while (++i < size.y)
-	// 	ft_printf("%s\n", tab[i]);
-
 	i = -1;
 	while (++i < size.y)
 	{
@@ -163,22 +159,10 @@ int	no_path_to_p(char **tab, t_point size, t_point begin)
 	return (0);
 }
 
-int	valid_paths(char **map)
+int	check_paths(char **map, char **temp, t_point size)
 {
 	unsigned int	i;
-	unsigned int	j;
-	char			**temp;
-	t_point			size;
-	t_point			begin;
-
-	size.x = ft_strlen(map[0]);
-	size.y = ft_strstrlen(map);
-	temp = make_area(map, size);
-
-	// ft_printf("\n");
-	// i = -1;
-	// while (++i < (unsigned int)size.y)
-	// 	ft_printf("%s\n", temp[i]);
+	unsigned int 	j;
 
 	i = -1;
 	while (map && map[++i])
@@ -188,22 +172,30 @@ int	valid_paths(char **map)
 		{
 			if (map[i][j] == 'E')
 			{
-				begin.x = j;
-				begin.y = i;
-				if (no_path_to_p(temp, size, begin))
+				if (no_path_to_p(temp, size, j, i))
 					return (return_error("No valid exit path!"));
 			}
 			if (map[i][j] == 'C')
 			{
-				begin.x = j;
-				begin.y = i;
-				if (no_path_to_p(temp, size, begin))
+				if (no_path_to_p(temp, size, j, i))
 					return (return_error("No valid collectibles path!"));
-				else
-					temp = make_area(map, size);
+				temp = make_area(map, size);
 			}
 		}
 	}
+	return (1);
+}
+
+int	valid_paths(char **map)
+{
+	char			**temp;
+	t_point			size;
+
+	size.x = ft_strlen(map[0]);
+	size.y = ft_strstrlen(map);
+	temp = make_area(map, size);
+	if (!check_paths(map, temp, size))
+		return (0);
 	return (1);
 }
 
@@ -282,7 +274,7 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		map = check_errors(argv[1]);
-		//draw_map(map);
+		draw_map(map);
 	}
 	else
 		return_error("Invalid number of arguments!");
