@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 08:05:26 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 08:10:48 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	{
 		map = check_errors(argv[1]);
 		if (!map)
-			return (0);
+			return (return_error("Memory allocation failed!"));
 		draw_map(map);
 		ft_free_tab(map);
 	}
