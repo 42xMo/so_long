@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 23:34:14 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 06:22:47 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 07:48:00 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ char	**make_area(char **zone, t_point size)
 	while (++i < size.y)
 	{
 		new[i] = malloc(size.x + 1);
-        if (!new[i])
-        {
-            while (--i >= 0)
-                free(new[i]);
-            free(new);
-            return NULL;
-        }
+		if (!new[i])
+		{
+			while (--i >= 0)
+				free(new[i]);
+			free(new);
+			return (NULL);
+		}
 		j = -1;
 		while (++j < size.x)
 			new[i][j] = zone[i][j];

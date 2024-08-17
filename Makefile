@@ -6,13 +6,13 @@
 #    By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/04 14:55:29 by mabdessm          #+#    #+#              #
-#    Updated: 2024/08/17 07:06:56 by mabdessm         ###   ########.fr        #
+#    Updated: 2024/08/17 07:59:07 by mabdessm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 CC = cc
-FLAGS = -Wall -Werror -Wextra -Iincludes #-fsanitize=address
+FLAGS = -Wall -Werror -Wextra -Iincludes -fsanitize=address
 MLXFLAGS = -L./minilibx-linux -lmlx -lXext -lX11
 RM = rm -rf
 
@@ -20,8 +20,8 @@ SRCS = getnextline/get_next_line.c getnextline/get_next_line_utils.c \
 		printf/ft_printf.c printf/ft_putchar.c printf/ft_putnbr_base.c \
 		printf/ft_putnbr_base_p.c printf/ft_putnbr.c printf/ft_putstr.c \
 		printf/ft_putunsigned.c solong/so_long.c solong/ft_split.c \
-		solong/ft_calloc.c solong/ft_flood_fill.c
-
+		solong/ft_calloc.c solong/ft_flood_fill.c solong/free_utils.c \
+		solong/errors.c solong/errors_utils.c solong/extra_errors.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME):

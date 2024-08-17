@@ -1,49 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 07:54:27 by mabdessm         ###   ########.fr       */
+/*   Created: 2024/08/17 07:51:38 by mabdessm          #+#    #+#             */
+/*   Updated: 2024/08/17 07:53:29 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-//for testing
-void	draw_map(char **map)
+void	ft_free_tab(char **str)
 {
 	int	i;
 
 	i = -1;
-	while (map && map[++i])
-		ft_printf("%s\n", map[i]);
+	if (!str)
+		return ;
+	while (str[++i])
+		free (str[i]);
+	free (str);
 }
 
-unsigned int	ft_strstrlen(char **str)
+int	free_and_return(char **tab, char c)
 {
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-		++i;
-	return (i);
-}
-
-int	main(int argc, char **argv)
-{
-	char	**map;
-
-	if (argc == 2)
+	if (c == 'e')
 	{
-		map = check_errors(argv[1]);
-		if (!map)
-			return (0);
-		draw_map(map);
-		ft_free_tab(map);
+		ft_free_tab(tab);
+		return (return_error("No valid exit path!"));
 	}
 	else
-		return (return_error("Invalid number of arguments!"));
+	{
+		ft_free_tab(tab);
+		return (return_error("No valid collectibles path!"));
+	}
+}
+
+void	double_free(char *str1, char *str2)
+{
+	free (str1);
+	free (str2);
 }
