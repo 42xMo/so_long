@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 03:51:22 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/17 06:37:14 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ void	draw_map(char **map)
 	i = -1;
 	while (map && map[++i])
 		ft_printf("%s\n", map[i]);
+}
+
+void	ft_free_tab(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		free (str[i]);
+	free (str);
 }
 
 int	return_error(char *str)
@@ -66,7 +76,8 @@ int	e_p_c_error(int exit, int start, int collectible)
 	if (start != 1)
 	{
 		ft_printf("\033[0;31mError\n");
-		ft_printf("Map has %i start positions! It needs to have 1!", start);
+		ft_printf("Map has %i start positions! It needs to have 1!\n\033[0m",
+			start);
 		return (1);
 	}
 	else if (collectible < 1)
@@ -77,7 +88,7 @@ int	e_p_c_error(int exit, int start, int collectible)
 	else if (exit != 1)
 	{
 		ft_printf("\033[0;31mError\n");
-		ft_printf("Map has %i exits! It needs to have 1!", exit);
+		ft_printf("Map has %i exits! It needs to have 1!\n\033[0m", exit);
 		return (1);
 	}
 	return (0);
@@ -169,6 +180,20 @@ int	no_path_to_p(char **tab, t_point size, unsigned int x, unsigned int y)
 	return (0);
 }
 
+int	free_and_return(char **tab, char c)
+{
+	if (c == 'e')
+	{
+		ft_free_tab(tab);
+		return (return_error("No valid exit path!"));
+	}
+	else
+	{
+		ft_free_tab(tab);
+		return (return_error("No valid collectibles path!"));
+	}
+}
+
 int	check_paths(char **map, char **temp, t_point size)
 {
 	unsigned int	i;
@@ -183,16 +208,17 @@ int	check_paths(char **map, char **temp, t_point size)
 			if (map[i][j] == 'E')
 			{
 				if (no_path_to_p(temp, size, j, i))
-					return (return_error("No valid exit path!"));
+					return (free_and_return(temp, 'e'));
 			}
 			if (map[i][j] == 'C')
 			{
 				if (no_path_to_p(temp, size, j, i))
-					return (return_error("No valid collectibles path!"));
+					return (free_and_return(temp, 'c'));
 				temp = make_area(map, size);
 			}
 		}
 	}
+	ft_free_tab(temp);
 	return (1);
 }
 
@@ -204,8 +230,14 @@ int	valid_paths(char **map)
 	size.x = ft_strlen(map[0]);
 	size.y = ft_strstrlen(map);
 	temp = make_area(map, size);
-	if (!check_paths(map, temp, size))
+	if (!temp)
 		return (0);
+	if (!check_paths(map, temp, size))
+	{
+		ft_free_tab(temp);
+		return (0);
+	}
+	ft_free_tab(temp);
 	return (1);
 }
 
@@ -249,20 +281,32 @@ char	**check_errors(char *file)
 	char	**map;
 	char	*temp;
 	char	*buffer;
+	char	*old_buffer;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0 || invalid_file(file))
 		return (file_errors(fd, file));
 	buffer = get_next_line(fd);
+    // if (!buffer)
+    //     return (buffer_errors(NULL));
 	temp = get_next_line(fd);
 	while (temp)
 	{
+		old_buffer = buffer;
 		buffer = ft_strjoin(buffer, temp);
+		free(old_buffer);
+		free (temp);
 		temp = get_next_line(fd);
 	}
+	close(fd);
 	if (!buffer || empty_lines_in_map(buffer))
+	{
+		//free(buffer);
 		return (buffer_errors(buffer));
+	}
 	map = ft_split(buffer, '\n');
+	free(buffer);
+	// free(temp);
 	if (no_map_errors(map) && valid_paths(map))
 		return (map);
 	return (NULL);
@@ -275,8 +319,16 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		map = check_errors(argv[1]);
+		if (!map)
+			return (0);
 		draw_map(map);
+		ft_free_tab(map);
+		//241 byte(s) leaked in 1 allocation(s) for empty line at start and beetween
+		//241 byte(s) leaked in 1 allocation(s) for 2 empty line at end
+		//108 byte(s) leaked in 6 allocation(s) for no collectible path
+		//216 byte(s) leaked in 12 allocation(s) for no exit path
+		//leaks for big maps but not small maps
 	}
 	else
-		return_error("Invalid number of arguments!");
+		return (return_error("Invalid number of arguments!"));
 }
