@@ -6,7 +6,7 @@
 #    By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/04 14:55:29 by mabdessm          #+#    #+#              #
-#    Updated: 2024/08/17 07:59:07 by mabdessm         ###   ########.fr        #
+#    Updated: 2024/08/17 08:03:10 by mabdessm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCS = getnextline/get_next_line.c getnextline/get_next_line_utils.c \
 		printf/ft_putnbr_base_p.c printf/ft_putnbr.c printf/ft_putstr.c \
 		printf/ft_putunsigned.c solong/so_long.c solong/ft_split.c \
 		solong/ft_calloc.c solong/ft_flood_fill.c solong/free_utils.c \
-		solong/errors.c solong/errors_utils.c solong/extra_errors.c
+		solong/errors.c solong/errors_utils.c solong/extra_errors.c \
+		solong/so_long_utils.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME):
