@@ -6,14 +6,15 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 07:59:43 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:19:36 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../.minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "../getnextline/get_next_line.h"
 # include "../printf/ft_printf.h"
 # include <fcntl.h>
