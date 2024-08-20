@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/20 10:52:34 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:14:30 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,11 @@ void	draw_map(char **map)
 	else
 		return (return_error("Invalid number of arguments!"));
 }*/
-
-int	main(void)
+/*int main(void)
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-
+	void *mlx_ptr;
+	void *win_ptr;
+ 
 	mlx_ptr = mlx_init();
 	if (!mlx_ptr)
 		return (1);
@@ -53,4 +52,4 @@ int	main(void)
 	mlx_destroy_display(mlx_ptr);
 	free(mlx_ptr);
 	return (0);
-}
+}*/
