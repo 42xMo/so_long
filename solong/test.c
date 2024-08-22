@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 14:52:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/20 16:06:41 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:26:53 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
  
 typedef struct s_data
 {
-	void *mlx_ptr;
-	void *win_ptr;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	int		steps;
 } t_data;
  
 int on_destroy(t_data *data)
@@ -29,17 +30,22 @@ int on_destroy(t_data *data)
  
 int on_keypress(int keysym, t_data *data)
 {
-	(void)data;
-	printf("Pressed key: %d\n", keysym);
 	if (keysym == 65307)
 		on_destroy(data);
+	if (keysym == 97 || keysym == 100 || keysym == 119 || keysym == 115)
+	{
+		//only do printf if the character actually moved so it shoudln't count
+		//if the character is in collision with a wall even if key is pressed
+		printf("Number of Steps : %d\n", ++(data->steps));
+	}
 	return (0);
 }
  
 int main(void)
 {
 	t_data data;
- 
+
+	data.steps = 0;
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
