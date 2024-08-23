@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/20 15:14:30 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:59:15 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,62 @@ void	draw_map(char **map)
 		ft_printf("%s\n", map[i]);
 }
 
-/*int	main(int argc, char **argv)
+int	on_destroy(t_data *data)
 {
-	char	**map;
+	ft_free_tab(data->map);
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
+	exit(0);
+	return (0);
+}
+
+int	on_keypress(int keysym, t_data *data)
+{
+	if (keysym == 65307)
+		on_destroy(data);
+	if (keysym == 97 || keysym == 100 || keysym == 119 || keysym == 115)
+	{
+		//only do printf if the character actually moved so it shoudln't count
+		//if the character is in collision with a wall even if key is pressed
+		printf("Number of Steps : %d\n", ++(data->steps));
+	}
+	return (0);
+}
+
+void	render_textures(t_data *data)
+{
+	data->win_ptr = mlx_new_window(data->mlx_ptr, 600, 400, "so_long");
+	if (!data->win_ptr)
+	{
+		free(data->mlx_ptr);
+		return ;
+	}
+	//mlx_loop_hook(data->mlx_ptr, /*the function that renders images*/, data);
+	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, data);
+	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy, data);
+	mlx_loop(data->mlx_ptr);
+	on_destroy(data);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	data;
 
 	if (argc == 2)
 	{
-		map = check_errors(argv[1]);
-		if (!map)
-			return (0);
-		draw_map(map);
-		ft_free_tab(map);
+		data.steps = 0;
+		data.mlx_ptr = mlx_init();
+		data.map = check_errors(argv[1]);
+		if (!data.map)
+			on_destroy(&data);
+		draw_map(data.map);
+		//store the images in data using the mlx_xpm_file_to_image
+		//have a new content in data that is a struct itself that has all the
+		//images for the textures then use that in the function that will render
+		//everything
+		render_textures(&data); 
 	}
 	else
-		return (return_error("Invalid number of arguments!"));
-}*/
-/*int main(void)
-{
-	void *mlx_ptr;
-	void *win_ptr;
- 
-	mlx_ptr = mlx_init();
-	if (!mlx_ptr)
-		return (1);
-	win_ptr = mlx_new_window(mlx_ptr, 600, 400, "hi :)");
-	if (!win_ptr)
-		return (free(mlx_ptr), 1);
-	mlx_destroy_window(mlx_ptr, win_ptr);
-	mlx_destroy_display(mlx_ptr);
-	free(mlx_ptr);
-	return (0);
-}*/
+		return (!return_error("Invalid number of arguments!"));
+}

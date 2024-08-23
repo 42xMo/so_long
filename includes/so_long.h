@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/20 10:19:36 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:21:40 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ typedef struct s_point
 	int			x;
 	int			y;
 }				t_point;
+
+typedef struct s_data
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	char	**map;
+	int		steps;
+}			t_data;
 
 void			fill(char **tab, t_point size, t_point cur, char to_fill);
 void			flood_fill(char **tab, t_point size, t_point begin);
