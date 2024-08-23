@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/23 16:59:15 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:03:54 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	render_textures(t_data *data)
 		free(data->mlx_ptr);
 		return ;
 	}
-	//mlx_loop_hook(data->mlx_ptr, /*the function that renders images*/, data);
+	//mlx_loop_hook(data->mlx_ptr, /*&the function that renders textures*/, data);
 	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, data);
 	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy, data);
 	mlx_loop(data->mlx_ptr);
@@ -72,10 +72,11 @@ int	main(int argc, char **argv)
 		if (!data.map)
 			on_destroy(&data);
 		draw_map(data.map);
-		//store the images in data using the mlx_xpm_file_to_image
-		//have a new content in data that is a struct itself that has all the
-		//images for the textures then use that in the function that will render
-		//everything
+		//load_textures(data);
+		//store the images in data using the mlx_xpm_file_to_image function
+		//have a new content in data that is a struct itself called textures
+		//that has all the images for the textures then use that in the
+		//function that renders everything
 		render_textures(&data); 
 	}
 	else
