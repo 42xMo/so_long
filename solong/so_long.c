@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/23 17:03:54 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:08:56 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	draw_map(char **map)
 int	on_destroy(t_data *data)
 {
 	ft_free_tab(data->map);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (data->map)
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	exit(0);
