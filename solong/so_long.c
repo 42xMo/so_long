@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/26 17:36:50 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:50:07 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,16 @@ void	draw_map(char **map)
 
 int	on_destroy(t_data *data)
 {
-	ft_free_tab(data->map);
 	if (data->map)
+	{
+		ft_free_tab(data->map);
+		mlx_destroy_image(data->mlx_ptr, data->textures.floor_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.wall_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	}
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	exit(0);
@@ -37,6 +44,8 @@ int	on_keypress(int keysym, t_data *data)
 {
 	if (keysym == 65307)
 		on_destroy(data);
+	//only this part is missing, whenever one of these fours i pressed need
+	//to move and change whatever happens in the game
 	if (keysym == 97 || keysym == 100 || keysym == 119 || keysym == 115)
 	{
 		//only do printf if the character actually moved so it shoudln't count
@@ -95,8 +104,8 @@ int	draw_textures(t_data *data)
 void	render_textures(t_data *data)
 {
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
-					 (data->width * data->textures.width),
-					 (data->height * data->textures.height), "so_long");
+					(data->width * data->textures.width),
+					(data->height * data->textures.height), "so_long");
 	if (!data->win_ptr)
 	{
 		free(data->mlx_ptr);
@@ -160,7 +169,7 @@ int	main(int argc, char **argv)
 		assign_size(&data);
 		draw_map(data.map);
 		load_textures(&data);
-		render_textures(&data); 
+		render_textures(&data);
 	}
 	else
 		return (!return_error("Invalid number of arguments!"));
