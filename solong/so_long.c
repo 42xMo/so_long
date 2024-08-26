@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/23 17:08:56 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:36:50 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,104 @@ int	on_keypress(int keysym, t_data *data)
 	return (0);
 }
 
+int	draw_textures(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (data->map[++i])
+	{
+		j = -1;
+		while (data->map[i][++j])
+		{
+			if (data->map[i][j] == '1')
+			{
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+					data->textures.wall_texture, data->textures.width * j,
+					data->textures.height * i);
+			}
+			if (data->map[i][j] == '0')
+			{
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+					data->textures.floor_texture, data->textures.width * j,
+					data->textures.height * i);
+			}
+			if (data->map[i][j] == 'P')
+			{
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+					data->textures.player_texture, data->textures.width * j,
+					data->textures.height * i);
+			}
+			if (data->map[i][j] == 'C')
+			{
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+					data->textures.collectible_texture, data->textures.width * j,
+					data->textures.height * i);
+			}
+			if (data->map[i][j] == 'E')
+			{
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+					data->textures.exit_texture, data->textures.width * j,
+					data->textures.height * i);
+			}
+		}
+	}
+	return (0);
+}
+
 void	render_textures(t_data *data)
 {
-	data->win_ptr = mlx_new_window(data->mlx_ptr, 600, 400, "so_long");
+	data->win_ptr = mlx_new_window(data->mlx_ptr,
+					 (data->width * data->textures.width),
+					 (data->height * data->textures.height), "so_long");
 	if (!data->win_ptr)
 	{
 		free(data->mlx_ptr);
 		return ;
 	}
-	//mlx_loop_hook(data->mlx_ptr, /*&the function that renders textures*/, data);
+	mlx_loop_hook(data->mlx_ptr, &draw_textures, data);
 	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, data);
 	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy, data);
 	mlx_loop(data->mlx_ptr);
 	on_destroy(data);
+}
+
+void	load_textures(t_data *data)
+{
+	int	h;
+	int	w;
+	
+	h = 80;
+	w = 80;
+	data->textures.height = h;
+	data->textures.width = w;
+	data->textures.floor_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/floor.xpm", &h, &w);
+	data->textures.wall_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/wall.xpm", &h, &w);
+	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/player.xpm", &h, &w);
+	data->textures.collectible_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/collectible.xpm", &h, &w);
+	data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/exit.xpm", &h, &w);
+}
+
+void	assign_size(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (data->map[++i])
+	{
+		j = 0;
+		while (data->map[i][j])
+			++j;
+	}
+	data->height = i;
+	data->width = j;
 }
 
 int	main(int argc, char **argv)
@@ -72,12 +157,9 @@ int	main(int argc, char **argv)
 		data.map = check_errors(argv[1]);
 		if (!data.map)
 			on_destroy(&data);
+		assign_size(&data);
 		draw_map(data.map);
-		//load_textures(data);
-		//store the images in data using the mlx_xpm_file_to_image function
-		//have a new content in data that is a struct itself called textures
-		//that has all the images for the textures then use that in the
-		//function that renders everything
+		load_textures(&data);
 		render_textures(&data); 
 	}
 	else

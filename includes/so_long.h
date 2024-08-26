@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/23 16:21:40 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:31:02 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,27 @@ typedef struct s_point
 	int			y;
 }				t_point;
 
+typedef struct s_textures
+{
+	int		height;
+	int		width;
+	void	*wall_texture;
+	void	*player_texture;
+	void	*exit_texture;
+	void	*collectible_texture;
+	void	*floor_texture;
+}			t_textures;
+
 typedef struct s_data
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	char	**map;
-	int		steps;
-}			t_data;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	char		**map;
+	int			height;
+	int			width;
+	int			steps;
+	t_textures	textures;
+}				t_data;
 
 void			fill(char **tab, t_point size, t_point cur, char to_fill);
 void			flood_fill(char **tab, t_point size, t_point begin);
