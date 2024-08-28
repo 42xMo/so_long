@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/28 20:39:09 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:19:59 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ int	on_destroy(t_data *data)
 	return (0);
 }
 
+//btw make a new texture that is the player in front of the closed exit in case
+//the player walks in front of it without all collectibles, you need 4 new
+//textures for this in case the player comes to the exit from below, top or other
+
+//when you move just make the next block the player and the one where we were is
+//set to floor unless it's an exit
+//to change the map just change the letters in the char** and since it's
+//constantly looping it will auto change the textures
+//for every move check if there is a block, if yes then do nothing otherwise move
+//also check if there is a collectible, if so then collect it, if there is an exit
+//then check if all collectibles are collected otherwise place the sprite with
+//the player in front of closed exit, if in front of open exit then quit
 int	on_keypress(int keysym, t_data *data)
 {
 	if (keysym == 65307)
