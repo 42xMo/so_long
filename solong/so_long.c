@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/28 21:19:59 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:20:57 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	on_destroy(t_data *data)
 //also check if there is a collectible, if so then collect it, if there is an exit
 //then check if all collectibles are collected otherwise place the sprite with
 //the player in front of closed exit, if in front of open exit then quit
+//have something that will change the exit texture if all collectibles are picked
 int	on_keypress(int keysym, t_data *data)
 {
 	if (keysym == 65307)
