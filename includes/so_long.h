@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/26 17:31:02 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:22:27 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,14 @@ typedef struct s_textures
 	void	*wall_texture;
 	void	*player_texture;
 	void	*exit_texture;
-	void	*collectible_texture;
+	void	*collectible1_texture;
+	void	*collectible2_texture;
+	void	*collectible3_texture;
+	void	*collectible4_texture;
+	void	*collectible5_texture;
+	void	*collectible6_texture;
+	void	*collectible7_texture;
+	void	*collectible8_texture;
 	void	*floor_texture;
 }			t_textures;
 
@@ -55,6 +62,7 @@ typedef struct s_data
 	int			height;
 	int			width;
 	int			steps;
+	int			cats;
 	t_textures	textures;
 }				t_data;
 

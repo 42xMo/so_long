@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/26 18:50:07 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:28:09 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,14 @@ int	on_destroy(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->textures.floor_texture);
 		mlx_destroy_image(data->mlx_ptr, data->textures.wall_texture);
 		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible1_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible2_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible3_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible4_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible5_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible6_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible7_texture);
+		mlx_destroy_image(data->mlx_ptr, data->textures.collectible8_texture);
 		mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	}
@@ -55,11 +62,44 @@ int	on_keypress(int keysym, t_data *data)
 	return (0);
 }
 
+void	put_image(t_data *data, void *texture, int i, int j)
+{
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+					texture, data->textures.width * j,
+					data->textures.height * i);
+}
+
+int	draw_collectibles(t_data *data, int nb, int i, int j)
+{
+	if (nb == 0)
+		put_image(data, data->textures.collectible1_texture, i, j);
+	else if (nb == 1)
+		put_image(data, data->textures.collectible2_texture, i, j);
+	else if (nb == 2)
+		put_image(data, data->textures.collectible3_texture, i, j);
+	else if (nb == 3)
+		put_image(data, data->textures.collectible4_texture, i, j);
+	else if (nb == 4)
+		put_image(data, data->textures.collectible5_texture, i, j);
+	else if (nb == 5)
+		put_image(data, data->textures.collectible6_texture, i, j);
+	else if (nb == 6)
+		put_image(data, data->textures.collectible7_texture, i, j);
+	else if (nb == 7)
+	{
+		put_image(data, data->textures.collectible8_texture, i, j);
+		nb = -1;
+	}
+	return (++nb);
+}
+
 int	draw_textures(t_data *data)
 {
 	int	i;
 	int	j;
+	int nb;
 
+	nb = 0;
 	i = -1;
 	while (data->map[++i])
 	{
@@ -67,35 +107,15 @@ int	draw_textures(t_data *data)
 		while (data->map[i][++j])
 		{
 			if (data->map[i][j] == '1')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures.wall_texture, data->textures.width * j,
-					data->textures.height * i);
-			}
+				put_image(data, data->textures.wall_texture, i, j);
 			if (data->map[i][j] == '0')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures.floor_texture, data->textures.width * j,
-					data->textures.height * i);
-			}
+				put_image(data, data->textures.floor_texture, i, j);
 			if (data->map[i][j] == 'P')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures.player_texture, data->textures.width * j,
-					data->textures.height * i);
-			}
+				put_image(data, data->textures.player_texture, i, j);
 			if (data->map[i][j] == 'C')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures.collectible_texture, data->textures.width * j,
-					data->textures.height * i);
-			}
+				nb = draw_collectibles(data, nb, i, j);
 			if (data->map[i][j] == 'E')
-			{
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures.exit_texture, data->textures.width * j,
-					data->textures.height * i);
-			}
+				put_image(data, data->textures.exit_texture, i, j);
 		}
 	}
 	return (0);
@@ -113,9 +133,30 @@ void	render_textures(t_data *data)
 	}
 	mlx_loop_hook(data->mlx_ptr, &draw_textures, data);
 	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, data);
-	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy, data);
+	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask,
+			&on_destroy, data);
 	mlx_loop(data->mlx_ptr);
 	on_destroy(data);
+}
+
+void	load_collectibles(t_data *data, int h, int w)
+{
+	data->textures.collectible1_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/cat_1.xpm", &h, &w);
+	data->textures.collectible2_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/cat_2.xpm", &h, &w);
+	data->textures.collectible3_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/cat_3.xpm", &h, &w);
+	data->textures.collectible4_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/cat_4.xpm", &h, &w);
+	data->textures.collectible5_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/cat_5.xpm", &h, &w);
+	data->textures.collectible6_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/cat_6.xpm", &h, &w);
+	data->textures.collectible7_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/cat_7.xpm", &h, &w);
+	data->textures.collectible8_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+									 "./textures/cat_shiny.xpm", &h, &w);
 }
 
 void	load_textures(t_data *data)
@@ -127,16 +168,15 @@ void	load_textures(t_data *data)
 	w = 80;
 	data->textures.height = h;
 	data->textures.width = w;
+	load_collectibles(data, h , w);
 	data->textures.floor_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 									 "./textures/floor.xpm", &h, &w);
 	data->textures.wall_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 									 "./textures/wall.xpm", &h, &w);
 	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 									 "./textures/player.xpm", &h, &w);
-	data->textures.collectible_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/collectible.xpm", &h, &w);
 	data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/exit.xpm", &h, &w);
+									 "./textures/exit_closed.xpm", &h, &w);
 }
 
 void	assign_size(t_data *data)
