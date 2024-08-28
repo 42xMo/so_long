@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/28 20:36:44 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:39:09 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ int	on_keypress(int keysym, t_data *data)
 		printf("Number of Steps : %d\n", ++(data->steps));
 	}
 	if (keysym == 97)
-		//move_left;
+		//move_left(data);
 		ft_printf("l");
 	if (keysym == 100)
-		//move_righ;
+		//move_righ(data);
 		ft_printf("r");
 	if (keysym == 119)
-		//move_up;
+		//move_up(data);
 		ft_printf("u");
 	if (keysym == 115)
-		//move_down;
+		//move_down(data);
 		ft_printf("d");
 	return (0);
 }
