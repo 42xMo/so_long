@@ -6,13 +6,13 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/28 20:28:09 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:29:59 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-//for testing
+// for testing
 void	draw_map(char **map)
 {
 	int	i;
@@ -51,12 +51,12 @@ int	on_keypress(int keysym, t_data *data)
 {
 	if (keysym == 65307)
 		on_destroy(data);
-	//only this part is missing, whenever one of these fours i pressed need
-	//to move and change whatever happens in the game
+	// only this part is missing, whenever one of these fours i pressed need
+	// to move and change whatever happens in the game
 	if (keysym == 97 || keysym == 100 || keysym == 119 || keysym == 115)
 	{
-		//only do printf if the character actually moved so it shoudln't count
-		//if the character is in collision with a wall even if key is pressed
+		// only do printf if the character actually moved so it shoudln't count
+		// if the character is in collision with a wall even if key is pressed
 		printf("Number of Steps : %d\n", ++(data->steps));
 	}
 	return (0);
@@ -64,9 +64,8 @@ int	on_keypress(int keysym, t_data *data)
 
 void	put_image(t_data *data, void *texture, int i, int j)
 {
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					texture, data->textures.width * j,
-					data->textures.height * i);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, texture,
+		data->textures.width * j, data->textures.height * i);
 }
 
 int	draw_collectibles(t_data *data, int nb, int i, int j)
@@ -97,7 +96,7 @@ int	draw_textures(t_data *data)
 {
 	int	i;
 	int	j;
-	int nb;
+	int	nb;
 
 	nb = 0;
 	i = -1;
@@ -123,9 +122,9 @@ int	draw_textures(t_data *data)
 
 void	render_textures(t_data *data)
 {
-	data->win_ptr = mlx_new_window(data->mlx_ptr,
-					(data->width * data->textures.width),
-					(data->height * data->textures.height), "so_long");
+	data->win_ptr = mlx_new_window(data->mlx_ptr, (data->width
+				* data->textures.width), (data->height * data->textures.height),
+			"so_long");
 	if (!data->win_ptr)
 	{
 		free(data->mlx_ptr);
@@ -133,8 +132,8 @@ void	render_textures(t_data *data)
 	}
 	mlx_loop_hook(data->mlx_ptr, &draw_textures, data);
 	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, data);
-	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask,
-			&on_destroy, data);
+	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy,
+		data);
 	mlx_loop(data->mlx_ptr);
 	on_destroy(data);
 }
@@ -142,41 +141,41 @@ void	render_textures(t_data *data)
 void	load_collectibles(t_data *data, int h, int w)
 {
 	data->textures.collectible1_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/cat_1.xpm", &h, &w);
+			"./textures/cat_1.xpm", &h, &w);
 	data->textures.collectible2_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/cat_2.xpm", &h, &w);
+			"./textures/cat_2.xpm", &h, &w);
 	data->textures.collectible3_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/cat_3.xpm", &h, &w);
+			"./textures/cat_3.xpm", &h, &w);
 	data->textures.collectible4_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/cat_4.xpm", &h, &w);
+			"./textures/cat_4.xpm", &h, &w);
 	data->textures.collectible5_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/cat_5.xpm", &h, &w);
+			"./textures/cat_5.xpm", &h, &w);
 	data->textures.collectible6_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/cat_6.xpm", &h, &w);
+			"./textures/cat_6.xpm", &h, &w);
 	data->textures.collectible7_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/cat_7.xpm", &h, &w);
+			"./textures/cat_7.xpm", &h, &w);
 	data->textures.collectible8_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/cat_shiny.xpm", &h, &w);
+			"./textures/cat_shiny.xpm", &h, &w);
 }
 
 void	load_textures(t_data *data)
 {
 	int	h;
 	int	w;
-	
+
 	h = 80;
 	w = 80;
 	data->textures.height = h;
 	data->textures.width = w;
-	load_collectibles(data, h , w);
+	load_collectibles(data, h, w);
 	data->textures.floor_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/floor.xpm", &h, &w);
+			"./textures/floor.xpm", &h, &w);
 	data->textures.wall_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/wall.xpm", &h, &w);
+			"./textures/wall.xpm", &h, &w);
 	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/player.xpm", &h, &w);
+			"./textures/player.xpm", &h, &w);
 	data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-									 "./textures/exit_closed.xpm", &h, &w);
+			"./textures/exit_closed.xpm", &h, &w);
 }
 
 void	assign_size(t_data *data)
