@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:48:00 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:33:37 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,23 @@ char			**file_errors(int fd, char *file);
 char			**buffer_errors(char *buffer);
 char			**check_errors(char *file);
 char			**check_file_errors(int fd);
+int				on_destroy(t_data *data);
+int				get_player_i_pos(t_data *data);
+int				get_player_j_pos(t_data *data);
+void			change_player_texture(t_data *data, char *new);
+void			change_exit_texture(t_data *data, char *new);
+void			put_back_exit(t_data *data, int i, int j);
+void			move_left(t_data *data);
+void			move_right(t_data *data);
+void			move_up(t_data *data);
+void			move_down(t_data *data);
+int				on_keypress(int keysym, t_data *data);
+void			put_image(t_data *data, void *texture, int i, int j);
+void			draw_collectibles(t_data *data, int i, int j);
+int				draw_textures(t_data *data);
+void			render_textures(t_data *data);
+void			load_collectibles(t_data *data, int h, int w);
+void			load_textures(t_data *data);
+void			assign_size(t_data *data);
 
 #endif
