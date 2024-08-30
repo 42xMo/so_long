@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 14:03:41 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:13:27 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,6 @@ int	draw_textures(t_data *data)
 	int	i;
 	int	j;
 
-	data->cat_color = 0;
 	i = -1;
 	while (data->map[++i])
 	{
@@ -328,9 +327,9 @@ int	draw_textures(t_data *data)
 				put_image(data, data->textures.floor_texture, i, j);
 			if (data->map[i][j] == 'P')
 				put_image(data, data->textures.player_texture, i, j);
+			data->cat_color = i * j;
 			if (data->map[i][j] == 'C')
 				draw_collectibles(data, i, j);
-			++data->cat_color;
 			if (data->map[i][j] == 'E')
 				put_image(data, data->textures.exit_texture, i, j);
 		}
