@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/28 21:04:50 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:30:56 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef struct s_data
 	int			height;
 	int			width;
 	int			steps;
+	int			exit;
+	int			total_cats;
+	int			current_cats;
 	t_textures	textures;
 }				t_data;
 
