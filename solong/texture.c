@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:16 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 15:35:45 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:57:50 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	draw_collectibles(t_data *data, int i, int j)
 		put_image(data, data->textures.collectible8_texture, i, j);
 }
 
+//change it so the camera is always centered on player
 int	draw_textures(t_data *data)
 {
 	int	i;

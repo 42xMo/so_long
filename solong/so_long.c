@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 16:16:29 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:24:07 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 	while (map && map[++i])
 		ft_printf("%s\n", map[i]);
 }*/
+
 int	on_destroy(t_data *data)
 {
 	if (data->map)
