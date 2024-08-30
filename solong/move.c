@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:21 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 15:36:59 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:22:41 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	move_left(t_data *data)
 
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
+	change_player_texture(data, "./textures/player_left.xpm");
 	if (i != 0 && (data->map)[j][i - 1] == '1')
 		return ;
-	change_player_texture(data, "./textures/player_left.xpm");
 	if (data->exit)
 		put_back_exit(data, i, j);
 	else
@@ -46,9 +46,9 @@ void	move_right(t_data *data)
 
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
+	change_player_texture(data, "./textures/player_right.xpm");
 	if (i != data->width && (data->map)[j][i + 1] == '1')
 		return ;
-	change_player_texture(data, "./textures/player_right.xpm");
 	if (data->exit)
 		put_back_exit(data, i, j);
 	else
@@ -73,9 +73,9 @@ void	move_up(t_data *data)
 
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
+	change_player_texture(data, "./textures/player_up.xpm");
 	if (j != 0 && (data->map)[j - 1][i] == '1')
 		return ;
-	change_player_texture(data, "./textures/player_up.xpm");
 	if (data->exit)
 		put_back_exit(data, i, j);
 	else
@@ -100,9 +100,9 @@ void	move_down(t_data *data)
 
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
+	change_player_texture(data, "./textures/player.xpm");
 	if (j != data->height && (data->map)[j + 1][i] == '1')
 		return ;
-	change_player_texture(data, "./textures/player.xpm");
 	if (data->exit)
 		put_back_exit(data, i, j);
 	else
