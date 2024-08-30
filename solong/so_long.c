@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 14:25:09 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 15:18:07 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 	while (map && map[++i])
 		ft_printf("%s\n", map[i]);
 }*/
-
 int	on_destroy(t_data *data)
 {
 	if (data->map)
@@ -85,48 +84,60 @@ int	get_player_j_pos(t_data *data)
 	return (player_pos);
 }
 
-void	move_left(t_data *data)
+void	change_player_texture(t_data *data, char *new)
 {
-	int i;
-	int j;
 	int	h;
 	int	w;
 
 	h = data->textures.height;
 	w = data->textures.width;
+	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
+	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr, new,
+			&h, &w);
+}
+
+void	change_exit_texture(t_data *data, char *new)
+{
+	int	h;
+	int	w;
+
+	h = data->textures.height;
+	w = data->textures.width;
+	++(data->current_cats);
+	if (data->current_cats == data->total_cats)
+	{
+		mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
+		data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr, new, &h,
+			&w);
+	}
+}
+
+void	put_back_exit(t_data *data, int i, int j)
+{
+	(data->map)[j][i] = 'E';
+	data->exit = 0;
+}
+
+void	move_left(t_data *data)
+{
+	int	i;
+	int	j;
+
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
 	if (i != 0 && (data->map)[j][i - 1] == '1')
 		return ;
-	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-		"./textures/player_left.xpm", &h, &w);
+	change_player_texture(data, "./textures/player_left.xpm");
 	if (data->exit)
-	{
-		(data->map)[j][i] = 'E';
-		data->exit = 0;
-	}
+		put_back_exit(data, i ,j);
 	else
 		(data->map)[j][i] = '0';
-	if (i != 0 && (data->map)[j][i - 1] == 'E')
-	{
-		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-			"./textures/player_left_exit_closed.xpm", &h, &w);
-		data->exit = 1;
-	}
 	if (i != 0 && (data->map)[j][i - 1] == 'C')
-	{
-		++(data->current_cats);
-		if (data->current_cats == data->total_cats)
-		{
-			mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
-			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-				"./textures/exit_open.xpm", &h, &w);
-		}
-	}
+		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (i != 0 && (data->map)[j][i - 1] == 'E')
 	{
+		change_player_texture(data, "./textures/player_left_exit_closed.xpm");
+		data->exit = 1;
 		if (data->current_cats == data->total_cats)
 			on_destroy(data);
 	}
@@ -136,46 +147,24 @@ void	move_left(t_data *data)
 
 void	move_right(t_data *data)
 {
-	int i;
-	int j;
-	int	h;
-	int	w;
+	int	i;
+	int	j;
 
-	h = data->textures.height;
-	w = data->textures.width;
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
 	if (i != data->width && (data->map)[j][i + 1] == '1')
 		return ;
-	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-		"./textures/player_right.xpm", &h, &w);
+	change_player_texture(data, "./textures/player_right.xpm");
 	if (data->exit)
-	{
-		(data->map)[j][i] = 'E';
-		data->exit = 0;
-	}
+		put_back_exit(data, i ,j);
 	else
 		(data->map)[j][i] = '0';
-	if (i != data->width && (data->map)[j][i + 1] == 'E')
-	{
-		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-			"./textures/player_right_exit_closed.xpm", &h, &w);
-		data->exit = 1;
-	}
 	if (i != data->width && (data->map)[j][i + 1] == 'C')
-	{
-		++(data->current_cats);
-		if (data->current_cats == data->total_cats)
-		{
-			mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
-			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-				"./textures/exit_open.xpm", &h, &w);
-		}
-	}
+		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (i != data->width && (data->map)[j][i + 1] == 'E')
 	{
+		change_player_texture(data, "./textures/player_right_exit_closed.xpm");
+		data->exit = 1;
 		if (data->current_cats == data->total_cats)
 			on_destroy(data);
 	}
@@ -185,46 +174,24 @@ void	move_right(t_data *data)
 
 void	move_up(t_data *data)
 {
-	int i;
-	int j;
-	int	h;
-	int	w;
+	int	i;
+	int	j;
 
-	h = data->textures.height;
-	w = data->textures.width;
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
 	if (j != 0 && (data->map)[j - 1][i] == '1')
 		return ;
-	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-		"./textures/player_up.xpm", &h, &w);
+	change_player_texture(data, "./textures/player_up.xpm");
 	if (data->exit)
-	{
-		(data->map)[j][i] = 'E';
-		data->exit = 0;
-	}
+		put_back_exit(data, i ,j);
 	else
 		(data->map)[j][i] = '0';
-	if (j != 0 && (data->map)[j - 1][i] == 'E')
-	{
-		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-			"./textures/player_up_exit_closed.xpm", &h, &w);
-		data->exit = 1;
-	}
 	if (j != 0 && (data->map)[j - 1][i] == 'C')
-	{
-		++(data->current_cats);
-		if (data->current_cats == data->total_cats)
-		{
-			mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
-			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-				"./textures/exit_open.xpm", &h, &w);
-		}
-	}
+		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (j != 0 && (data->map)[j - 1][i] == 'E')
 	{
+		change_player_texture(data, "./textures/player_up_exit_closed.xpm");
+		data->exit = 1;
 		if (data->current_cats == data->total_cats)
 			on_destroy(data);
 	}
@@ -234,46 +201,24 @@ void	move_up(t_data *data)
 
 void	move_down(t_data *data)
 {
-	int i;
-	int j;
-	int	h;
-	int	w;
+	int	i;
+	int	j;
 
-	h = data->textures.height;
-	w = data->textures.width;
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
 	if (j != data->height && (data->map)[j + 1][i] == '1')
 		return ;
-	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-		"./textures/player.xpm", &h, &w);
+	change_player_texture(data, "./textures/player.xpm");
 	if (data->exit)
-	{
-		(data->map)[j][i] = 'E';
-		data->exit = 0;
-	}
+		put_back_exit(data, i ,j);
 	else
 		(data->map)[j][i] = '0';
-	if (j != data->height && (data->map)[j + 1][i] == 'E')
-	{
-		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-			"./textures/player_exit_closed.xpm", &h, &w);
-		data->exit = 1;
-	}
 	if (j != data->height && (data->map)[j + 1][i] == 'C')
-	{
-		++(data->current_cats);
-		if (data->current_cats == data->total_cats)
-		{
-			mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
-			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-				"./textures/exit_open.xpm", &h, &w);
-		}
-	}
+		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (j != data->height && (data->map)[j + 1][i] == 'E')
 	{
+		change_player_texture(data, "./textures/player_exit_closed.xpm");
+		data->exit = 1;
 		if (data->current_cats == data->total_cats)
 			on_destroy(data);
 	}
