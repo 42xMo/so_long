@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 14:13:27 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:19:58 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	move_left(t_data *data)
 	j = get_player_j_pos(data);
 	if (i != 0 && (data->map)[j][i - 1] == '1')
 		return ;
-	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-		"./textures/player_left.xpm", &h, &w);
+	//data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+	//	"./textures/player_left.xpm", &h, &w);
 	if (data->exit)
 	{
 		(data->map)[j][i] = 'E';
@@ -109,8 +109,8 @@ void	move_left(t_data *data)
 		(data->map)[j][i] = '0';
 	if (i != 0 && (data->map)[j][i - 1] == 'E')
 	{
-		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-			"./textures/player_left_exit_closed.xpm", &h, &w);
+	//	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+	//		"./textures/player_left_exit_closed.xpm", &h, &w);
 		data->exit = 1;
 	}
 	if (i != 0 && (data->map)[j][i - 1] == 'C')
@@ -118,8 +118,8 @@ void	move_left(t_data *data)
 		++(data->current_cats);
 		if (data->current_cats == data->total_cats)
 		{
-			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-				"./textures/exit_open.xpm", &h, &w);
+	//		data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+	//			"./textures/exit_open.xpm", &h, &w);
 		}
 	}
 	if (i != 0 && (data->map)[j][i - 1] == 'E')
