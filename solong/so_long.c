@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 13:46:47 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:03:41 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,37 +290,32 @@ void	put_image(t_data *data, void *texture, int i, int j)
 		data->textures.width * j, data->textures.height * i);
 }
 
-int	draw_collectibles(t_data *data, int nb, int i, int j)
+void	draw_collectibles(t_data *data, int i, int j)
 {
-	if (nb == 0)
+	if (data->cat_color % 8 == 0)
 		put_image(data, data->textures.collectible1_texture, i, j);
-	else if (nb == 1)
+	else if (data->cat_color % 8 == 1)
 		put_image(data, data->textures.collectible2_texture, i, j);
-	else if (nb == 2)
+	else if (data->cat_color % 8 == 2)
 		put_image(data, data->textures.collectible3_texture, i, j);
-	else if (nb == 3)
+	else if (data->cat_color % 8 == 3)
 		put_image(data, data->textures.collectible4_texture, i, j);
-	else if (nb == 4)
+	else if (data->cat_color % 8 == 4)
 		put_image(data, data->textures.collectible5_texture, i, j);
-	else if (nb == 5)
+	else if (data->cat_color % 8 == 5)
 		put_image(data, data->textures.collectible6_texture, i, j);
-	else if (nb == 6)
+	else if (data->cat_color % 8 == 6)
 		put_image(data, data->textures.collectible7_texture, i, j);
-	else if (nb == 7)
-	{
+	else if (data->cat_color % 8 == 7)
 		put_image(data, data->textures.collectible8_texture, i, j);
-		nb = -1;
-	}
-	return (++nb);
 }
 
 int	draw_textures(t_data *data)
 {
 	int	i;
 	int	j;
-	int	nb;
 
-	nb = 0;
+	data->cat_color = 0;
 	i = -1;
 	while (data->map[++i])
 	{
@@ -334,7 +329,8 @@ int	draw_textures(t_data *data)
 			if (data->map[i][j] == 'P')
 				put_image(data, data->textures.player_texture, i, j);
 			if (data->map[i][j] == 'C')
-				nb = draw_collectibles(data, nb, i, j);
+				draw_collectibles(data, i, j);
+			++data->cat_color;
 			if (data->map[i][j] == 'E')
 				put_image(data, data->textures.exit_texture, i, j);
 		}
