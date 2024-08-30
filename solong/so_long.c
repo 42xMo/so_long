@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 14:19:58 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:25:09 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ void	move_left(t_data *data)
 	j = get_player_j_pos(data);
 	if (i != 0 && (data->map)[j][i - 1] == '1')
 		return ;
-	//data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-	//	"./textures/player_left.xpm", &h, &w);
+	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
+	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+		"./textures/player_left.xpm", &h, &w);
 	if (data->exit)
 	{
 		(data->map)[j][i] = 'E';
@@ -109,8 +110,9 @@ void	move_left(t_data *data)
 		(data->map)[j][i] = '0';
 	if (i != 0 && (data->map)[j][i - 1] == 'E')
 	{
-	//	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-	//		"./textures/player_left_exit_closed.xpm", &h, &w);
+		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
+		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/player_left_exit_closed.xpm", &h, &w);
 		data->exit = 1;
 	}
 	if (i != 0 && (data->map)[j][i - 1] == 'C')
@@ -118,8 +120,9 @@ void	move_left(t_data *data)
 		++(data->current_cats);
 		if (data->current_cats == data->total_cats)
 		{
-	//		data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-	//			"./textures/exit_open.xpm", &h, &w);
+			mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
+			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+				"./textures/exit_open.xpm", &h, &w);
 		}
 	}
 	if (i != 0 && (data->map)[j][i - 1] == 'E')
@@ -144,6 +147,7 @@ void	move_right(t_data *data)
 	j = get_player_j_pos(data);
 	if (i != data->width && (data->map)[j][i + 1] == '1')
 		return ;
+	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
 	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 		"./textures/player_right.xpm", &h, &w);
 	if (data->exit)
@@ -155,6 +159,7 @@ void	move_right(t_data *data)
 		(data->map)[j][i] = '0';
 	if (i != data->width && (data->map)[j][i + 1] == 'E')
 	{
+		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
 		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./textures/player_right_exit_closed.xpm", &h, &w);
 		data->exit = 1;
@@ -164,6 +169,7 @@ void	move_right(t_data *data)
 		++(data->current_cats);
 		if (data->current_cats == data->total_cats)
 		{
+			mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
 			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 				"./textures/exit_open.xpm", &h, &w);
 		}
@@ -190,6 +196,7 @@ void	move_up(t_data *data)
 	j = get_player_j_pos(data);
 	if (j != 0 && (data->map)[j - 1][i] == '1')
 		return ;
+	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
 	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 		"./textures/player_up.xpm", &h, &w);
 	if (data->exit)
@@ -201,6 +208,7 @@ void	move_up(t_data *data)
 		(data->map)[j][i] = '0';
 	if (j != 0 && (data->map)[j - 1][i] == 'E')
 	{
+		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
 		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./textures/player_up_exit_closed.xpm", &h, &w);
 		data->exit = 1;
@@ -210,6 +218,7 @@ void	move_up(t_data *data)
 		++(data->current_cats);
 		if (data->current_cats == data->total_cats)
 		{
+			mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
 			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 				"./textures/exit_open.xpm", &h, &w);
 		}
@@ -236,6 +245,7 @@ void	move_down(t_data *data)
 	j = get_player_j_pos(data);
 	if (j != data->height && (data->map)[j + 1][i] == '1')
 		return ;
+	mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
 	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 		"./textures/player.xpm", &h, &w);
 	if (data->exit)
@@ -247,6 +257,7 @@ void	move_down(t_data *data)
 		(data->map)[j][i] = '0';
 	if (j != data->height && (data->map)[j + 1][i] == 'E')
 	{
+		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
 		data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./textures/player_exit_closed.xpm", &h, &w);
 		data->exit = 1;
@@ -256,6 +267,7 @@ void	move_down(t_data *data)
 		++(data->current_cats);
 		if (data->current_cats == data->total_cats)
 		{
+			mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
 			data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 				"./textures/exit_open.xpm", &h, &w);
 		}
