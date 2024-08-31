@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:16 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/31 04:48:44 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/31 05:25:27 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	draw_textures(t_data *data)
 	int	ii;
 
 	mlx_get_screen_size(data->mlx_ptr, &x, &y);
-	x /= 80;
-	y /= 80;
+	x /= data->textures.width;
+	y /= data->textures.height;
 	i = get_player_j_pos(data) - ((y / 2) - 1) - 1;
 	while ((i + y) > data->height)
 		--i;
