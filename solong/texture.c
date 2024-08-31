@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:16 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 21:04:08 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/31 04:37:57 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,48 @@ void	draw_collectibles(t_data *data, int i, int j)
 		put_image(data, data->textures.collectible8_texture, i, j);
 }
 
-//change it so the camera is always centered on player
 int	draw_textures(t_data *data)
 {
 	int	i;
 	int	j;
+	int	ii;
+	int	jj;
+	int	x;
+	int	y;
 
-	i = -1;
+	mlx_get_screen_size(data->mlx_ptr, &x, &y);
+	x /= 80;
+	y /= 80;
+	ii = 0;
+	i = get_player_j_pos(data) - ((y / 2) - 1) - 1;
+	while ((i + y) > data->height)
+		--i;
+	if (i < 0)
+		i = -1;
 	while (data->map[++i])
 	{
-		j = -1;
+		jj = 0;
+		j = get_player_i_pos(data) - ((x / 2) - 1) - 1;
+		while ((j + x + 1) > data->width)
+			--j;
+		if (j < 0)
+			j = -1;
 		while (data->map[i][++j])
 		{
 			if (data->map[i][j] == '1')
-				put_image(data, data->textures.wall_texture, i, j);
+				put_image(data, data->textures.wall_texture, ii, jj);
 			if (data->map[i][j] == '0')
-				put_image(data, data->textures.floor_texture, i, j);
+				put_image(data, data->textures.floor_texture, ii, jj);
 			if (data->map[i][j] == 'P')
-				put_image(data, data->textures.player_texture, i, j);
+				put_image(data, data->textures.player_texture, ii, jj);
 			data->cat_color = i * j;
 			if (data->map[i][j] == 'C')
-				draw_collectibles(data, i, j);
+				draw_collectibles(data, ii, jj);
 			if (data->map[i][j] == 'E')
-				put_image(data, data->textures.exit_texture, i, j);
+				put_image(data, data->textures.exit_texture, ii, jj);
+			++jj;
 		}
+		++ii;
 	}
 	return (0);
 }

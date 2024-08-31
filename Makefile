@@ -6,13 +6,13 @@
 #    By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/04 14:55:29 by mabdessm          #+#    #+#              #
-#    Updated: 2024/08/30 15:39:42 by mabdessm         ###   ########.fr        #
+#    Updated: 2024/08/30 23:50:38 by mabdessm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 CC = cc
-FLAGS = -Wall -Werror -Wextra -fsanitize=address
+FLAGS = -Wall -Werror -Wextra #-fsanitize=address
 MLXFLAGS = -L./minilibx-linux -lmlx -lbsd -lXext -lX11 -lm
 INCLUDES = -I./includes -I./minilibx-linux
 
