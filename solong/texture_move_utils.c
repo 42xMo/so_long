@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:28:47 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 15:36:52 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/31 04:48:58 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,22 @@ void	change_exit_texture(t_data *data, char *new)
 	}
 }
 
-void	put_back_exit(t_data *data, int i, int j)
+void	draw_collectibles(t_data *data, int i, int j)
 {
-	(data->map)[j][i] = 'E';
-	data->exit = 0;
+	if (data->cat_color % 8 == 0)
+		put_image(data, data->textures.collectible1_texture, i, j);
+	else if (data->cat_color % 8 == 1)
+		put_image(data, data->textures.collectible2_texture, i, j);
+	else if (data->cat_color % 8 == 2)
+		put_image(data, data->textures.collectible3_texture, i, j);
+	else if (data->cat_color % 8 == 3)
+		put_image(data, data->textures.collectible4_texture, i, j);
+	else if (data->cat_color % 8 == 4)
+		put_image(data, data->textures.collectible5_texture, i, j);
+	else if (data->cat_color % 8 == 5)
+		put_image(data, data->textures.collectible6_texture, i, j);
+	else if (data->cat_color % 8 == 6)
+		put_image(data, data->textures.collectible7_texture, i, j);
+	else if (data->cat_color % 8 == 7)
+		put_image(data, data->textures.collectible8_texture, i, j);
 }

@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 08:01:58 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/17 08:02:42 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/31 04:54:48 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,18 @@ unsigned int	ft_strstrlen(char **str)
 	while (str && str[i])
 		++i;
 	return (i);
+}
+
+void	put_back_exit(t_data *data, int i, int j)
+{
+	(data->map)[j][i] = 'E';
+	data->exit = 0;
+}
+
+void	check_end(t_data *data, char *str)
+{
+	change_player_texture(data, str);
+	data->exit = 1;
+	if (data->current_cats == data->total_cats)
+		on_destroy(data);
 }

@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:58:24 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/30 21:04:27 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/31 04:55:02 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int				get_player_j_pos(t_data *data);
 void			change_player_texture(t_data *data, char *new);
 void			change_exit_texture(t_data *data, char *new);
 void			put_back_exit(t_data *data, int i, int j);
+void			check_end(t_data *data, char *str);
 void			move_left(t_data *data);
 void			move_right(t_data *data);
 void			move_up(t_data *data);
@@ -104,6 +105,7 @@ void			move_down(t_data *data);
 int				on_keypress(int keysym, t_data *data);
 void			put_image(t_data *data, void *texture, int i, int j);
 void			draw_collectibles(t_data *data, int i, int j);
+void			draw_textures2(t_data *data, int i, int x, int ii);
 int				draw_textures(t_data *data);
 void			render_textures(t_data *data);
 void			load_collectibles(t_data *data, int h, int w);
