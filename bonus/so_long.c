@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 19:58:18 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 23:10:49 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	assign_size(t_data *data)
 	i = -1;
 	data->total_cats = 0;
 	data->current_cats = 0;
+	data->enemies = 0;
 	while (data->map[++i])
 	{
 		j = -1;
@@ -65,11 +66,15 @@ void	assign_size(t_data *data)
 		{
 			if (data->map[i][j] == 'C')
 				++(data->total_cats);
+			if (data->map[i][j] == 'F')
+				++(data->enemies);
 		}
 	}
 	data->height = i;
 	data->width = j;
 	data->exit = 0;
+	data->fire_animation = 0;
+	data->enemy_direction = 0;
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:34:38 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 19:58:31 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 23:15:34 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <time.h>
 
 void			ft_bzero(void *s, size_t n);
 void			*ft_calloc(size_t nmemb, size_t size);
@@ -72,6 +73,9 @@ typedef struct s_data
 	int			total_cats;
 	int			current_cats;
 	int			cat_color;
+	int			enemies;
+	int			fire_animation;
+	int			enemy_direction;
 	t_textures	textures;
 }				t_data;
 
@@ -121,5 +125,7 @@ char			*ft_itoa(int n);
 void			put_number_steps(t_data *data);
 void			load_enemies(t_data *data, int h, int w);
 void			destroy_images(t_data *data);
+void			move_enemies(t_data *data, int i, int j, int k);
+void			draw_enemies(t_data *data, int i, int j, int k);
 
 #endif
