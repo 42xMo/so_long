@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:21 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/31 05:52:43 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:15:29 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	move_left(t_data *data)
 	if (i != 0 && (data->map)[j][i - 1] == 'E')
 		check_end(data, "./textures/player_left_exit_closed.xpm");
 	(data->map)[j][i - 1] = 'P';
-	printf("Number of Steps : %d\n", ++(data->steps));
+	++(data->steps);
 }
 
 void	move_right(t_data *data)
@@ -63,7 +63,7 @@ void	move_right(t_data *data)
 	if (i != data->width && (data->map)[j][i + 1] == 'E')
 		check_end(data, "./textures/player_right_exit_closed.xpm");
 	(data->map)[j][i + 1] = 'P';
-	printf("Number of Steps : %d\n", ++(data->steps));
+	++(data->steps);
 }
 
 void	move_up(t_data *data)
@@ -89,7 +89,7 @@ void	move_up(t_data *data)
 	if (j != 0 && (data->map)[j - 1][i] == 'E')
 		check_end(data, "./textures/player_up_exit_closed.xpm");
 	(data->map)[j - 1][i] = 'P';
-	printf("Number of Steps : %d\n", ++(data->steps));
+	++(data->steps);
 }
 
 void	move_down(t_data *data)
@@ -115,7 +115,7 @@ void	move_down(t_data *data)
 	if (j != data->height && (data->map)[j + 1][i] == 'E')
 		check_end(data, "./textures/player_exit_closed.xpm");
 	(data->map)[j + 1][i] = 'P';
-	printf("Number of Steps : %d\n", ++(data->steps));
+	++(data->steps);
 }
 
 void	put_image(t_data *data, void *texture, int i, int j)

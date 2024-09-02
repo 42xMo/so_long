@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:16 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 19:00:26 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:08:55 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	draw_textures2(t_data *data, int i, int x, int ii)
 		else if (data->map[i][j] == 'E')
 			put_image(data, data->textures.exit_texture, ii, jj);
 		data->cat_color = i * j;
-		mlx_string_put(data->mlx_ptr, data->win_ptr, data->textures.width * 1.25,
-			data->textures.height / 2, 0xFFFF00, "Number of Steps : xx");
+		put_number_steps(data);
 		++jj;
 	}
 }

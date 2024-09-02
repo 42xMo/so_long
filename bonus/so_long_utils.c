@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 08:01:58 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/31 05:36:12 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:19:30 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,17 @@ void	check_end(t_data *data, char *str)
 	data->exit = 1;
 	if (data->current_cats == data->total_cats)
 		on_destroy(data);
+}
+
+void	put_number_steps(t_data *data)
+{
+	char	*steps;
+	char	*str;
+
+	steps = ft_itoa(data->steps);
+	str = ft_strjoin("Number of Steps : ", steps);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, data->textures.width * 1.25,
+		data->textures.height / 2, 0xFFFF00, str);
+	free (steps);
+	free (str);
 }

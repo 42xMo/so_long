@@ -6,7 +6,7 @@
 #    By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/04 14:55:29 by mabdessm          #+#    #+#              #
-#    Updated: 2024/09/02 16:49:31 by mabdessm         ###   ########.fr        #
+#    Updated: 2024/09/02 19:10:04 by mabdessm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ BONUS_SRCS = getnextline/get_next_line.c getnextline/get_next_line_utils.c \
 		bonus/ft_calloc.c bonus/ft_flood_fill.c bonus/free_utils.c \
 		bonus/errors.c bonus/errors_utils.c bonus/extra_errors.c \
 		bonus/so_long_utils.c bonus/move.c bonus/texture_move_utils.c \
-		bonus/texture.c
+		bonus/texture.c bonus/ft_itoa.c
 
 OBJS = $(SRCS:.c=.o)
 

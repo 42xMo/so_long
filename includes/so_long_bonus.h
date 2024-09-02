@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:34:38 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/31 05:36:40 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:08:48 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,7 @@ void			render_textures(t_data *data);
 void			load_collectibles(t_data *data, int h, int w);
 void			load_textures(t_data *data);
 void			assign_size(t_data *data);
+char			*ft_itoa(int n);
+void			put_number_steps(t_data *data);
 
 #endif
