@@ -6,11 +6,11 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:16 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 17:07:09 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:00:26 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	draw_textures2(t_data *data, int i, int x, int ii)
 {
@@ -27,15 +27,17 @@ void	draw_textures2(t_data *data, int i, int x, int ii)
 	{
 		if (data->map[i][j] == '1')
 			put_image(data, data->textures.wall_texture, ii, jj);
-		if (data->map[i][j] == '0')
+		else if (data->map[i][j] == '0')
 			put_image(data, data->textures.floor_texture, ii, jj);
-		if (data->map[i][j] == 'P')
+		else if (data->map[i][j] == 'P')
 			put_image(data, data->textures.player_texture, ii, jj);
-		data->cat_color = i * j;
-		if (data->map[i][j] == 'C')
+		else if (data->map[i][j] == 'C')
 			draw_collectibles(data, ii, jj);
-		if (data->map[i][j] == 'E')
+		else if (data->map[i][j] == 'E')
 			put_image(data, data->textures.exit_texture, ii, jj);
+		data->cat_color = i * j;
+		mlx_string_put(data->mlx_ptr, data->win_ptr, data->textures.width * 1.25,
+			data->textures.height / 2, 0xFFFF00, "Number of Steps : xx");
 		++jj;
 	}
 }
@@ -117,7 +119,7 @@ void	load_textures(t_data *data)
 	data->textures.wall_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./textures/wall.xpm", &h, &w);
 	data->textures.player_texture = mlx_xpm_file_to_image(data->mlx_ptr,
-			"./textures/player.xpm", &h, &w);
+			"./textures/gab.xpm", &h, &w);
 	data->textures.exit_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./textures/exit_closed.xpm", &h, &w);
 }

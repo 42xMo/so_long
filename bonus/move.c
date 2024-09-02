@@ -6,11 +6,11 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:21 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 16:43:58 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/08/31 05:52:43 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	move_left(t_data *data)
 {
@@ -99,7 +99,7 @@ void	move_down(t_data *data)
 
 	i = get_player_i_pos(data);
 	j = get_player_j_pos(data);
-	change_player_texture(data, "./textures/player.xpm");
+	change_player_texture(data, "./textures/gab.xpm");
 	if (j != data->height && (data->map)[j + 1][i] == '1')
 	{
 		if (data->exit)
