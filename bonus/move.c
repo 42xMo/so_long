@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:21 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 19:15:29 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:47:20 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	move_left(t_data *data)
 		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (i != 0 && (data->map)[j][i - 1] == 'E')
 		check_end(data, "./textures/player_left_exit_closed.xpm");
+	if (i != 0 && (data->map)[j][i - 1] == 'F')
+		on_destroy(data);
 	(data->map)[j][i - 1] = 'P';
 	++(data->steps);
 }
@@ -62,6 +64,8 @@ void	move_right(t_data *data)
 		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (i != data->width && (data->map)[j][i + 1] == 'E')
 		check_end(data, "./textures/player_right_exit_closed.xpm");
+	if (i != data->width && (data->map)[j][i + 1] == 'F')
+		on_destroy(data);
 	(data->map)[j][i + 1] = 'P';
 	++(data->steps);
 }
@@ -88,6 +92,8 @@ void	move_up(t_data *data)
 		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (j != 0 && (data->map)[j - 1][i] == 'E')
 		check_end(data, "./textures/player_up_exit_closed.xpm");
+	if (j != 0 && (data->map)[j - 1][i] == 'F')
+		on_destroy(data);
 	(data->map)[j - 1][i] = 'P';
 	++(data->steps);
 }
@@ -114,6 +120,8 @@ void	move_down(t_data *data)
 		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (j != data->height && (data->map)[j + 1][i] == 'E')
 		check_end(data, "./textures/player_exit_closed.xpm");
+	if (j != data->height && (data->map)[j + 1][i] == 'F')
+		on_destroy(data);
 	(data->map)[j + 1][i] = 'P';
 	++(data->steps);
 }
@@ -122,4 +130,5 @@ void	put_image(t_data *data, void *texture, int i, int j)
 {
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, texture,
 		data->textures.width * j, data->textures.height * i);
+	put_number_steps(data);
 }

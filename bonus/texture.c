@@ -6,40 +6,11 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:16 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 19:08:55 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:53:34 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long_bonus.h"
-
-void	draw_textures2(t_data *data, int i, int x, int ii)
-{
-	int	jj;
-	int	j;
-
-	jj = 0;
-	j = get_player_i_pos(data) - ((x / 2) - 1) - 1;
-	while ((j + x + 1) > data->width)
-		--j;
-	if (j < 0)
-		j = -1;
-	while (data->map[i][++j])
-	{
-		if (data->map[i][j] == '1')
-			put_image(data, data->textures.wall_texture, ii, jj);
-		else if (data->map[i][j] == '0')
-			put_image(data, data->textures.floor_texture, ii, jj);
-		else if (data->map[i][j] == 'P')
-			put_image(data, data->textures.player_texture, ii, jj);
-		else if (data->map[i][j] == 'C')
-			draw_collectibles(data, ii, jj);
-		else if (data->map[i][j] == 'E')
-			put_image(data, data->textures.exit_texture, ii, jj);
-		data->cat_color = i * j;
-		put_number_steps(data);
-		++jj;
-	}
-}
 
 int	draw_textures(t_data *data)
 {
@@ -103,6 +74,22 @@ void	load_collectibles(t_data *data, int h, int w)
 			"./textures/cat_shiny.xpm", &h, &w);
 }
 
+void	load_enemies(t_data *data, int h, int w)
+{
+	data->textures.enemy1_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/fire_1.xpm", &h, &w);
+	data->textures.enemy2_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/fire_2.xpm", &h, &w);
+	data->textures.enemy3_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/fire_3.xpm", &h, &w);
+	data->textures.enemy4_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/fire_4.xpm", &h, &w);
+	data->textures.enemy5_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/fire_5.xpm", &h, &w);
+	data->textures.enemy6_texture = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/fire_6.xpm", &h, &w);
+}
+
 void	load_textures(t_data *data)
 {
 	int	h;
@@ -113,6 +100,7 @@ void	load_textures(t_data *data)
 	data->textures.height = h;
 	data->textures.width = w;
 	load_collectibles(data, h, w);
+	load_enemies(data, h, w);
 	data->textures.floor_texture = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./textures/floor.xpm", &h, &w);
 	data->textures.wall_texture = mlx_xpm_file_to_image(data->mlx_ptr,

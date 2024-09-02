@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 08:01:58 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 19:19:30 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:53:47 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,33 @@ void	put_number_steps(t_data *data)
 		data->textures.height / 2, 0xFFFF00, str);
 	free (steps);
 	free (str);
+}
+
+void	draw_textures2(t_data *data, int i, int x, int ii)
+{
+	int	jj;
+	int	j;
+
+	jj = 0;
+	j = get_player_i_pos(data) - ((x / 2) - 1) - 1;
+	while ((j + x + 1) > data->width)
+		--j;
+	if (j < 0)
+		j = -1;
+	while (data->map[i][++j])
+	{
+		if (data->map[i][j] == '1')
+			put_image(data, data->textures.wall_texture, ii, jj++);
+		if (data->map[i][j] == '0')
+			put_image(data, data->textures.floor_texture, ii, jj++);
+		if (data->map[i][j] == 'P')
+			put_image(data, data->textures.player_texture, ii, jj++);
+		data->cat_color = i * j;
+		if (data->map[i][j] == 'C')
+			draw_collectibles(data, ii, jj++);
+		if (data->map[i][j] == 'E')
+			put_image(data, data->textures.exit_texture, ii, jj++);
+		if (data->map[i][j] == 'F')
+			put_image(data, data->textures.enemy1_texture, ii, jj++);
+	}
 }

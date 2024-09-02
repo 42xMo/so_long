@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:42:23 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/08/31 05:36:14 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:58:18 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,8 @@ int	on_destroy(t_data *data)
 {
 	if (data->map)
 	{
+		destroy_images(data);
 		ft_free_tab(data->map);
-		mlx_destroy_image(data->mlx_ptr, data->textures.floor_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.wall_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.player_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible1_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible2_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible3_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible4_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible5_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible6_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible7_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.collectible8_texture);
-		mlx_destroy_image(data->mlx_ptr, data->textures.exit_texture);
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	}
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);

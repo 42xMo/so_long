@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:34:38 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 19:08:48 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:58:31 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ typedef struct s_textures
 	void	*collectible7_texture;
 	void	*collectible8_texture;
 	void	*floor_texture;
+	void	*enemy1_texture;
+	void	*enemy2_texture;
+	void	*enemy3_texture;
+	void	*enemy4_texture;
+	void	*enemy5_texture;
+	void	*enemy6_texture;
 }			t_textures;
 
 typedef struct s_data
@@ -113,5 +119,7 @@ void			load_textures(t_data *data);
 void			assign_size(t_data *data);
 char			*ft_itoa(int n);
 void			put_number_steps(t_data *data);
+void			load_enemies(t_data *data, int h, int w);
+void			destroy_images(t_data *data);
 
 #endif
