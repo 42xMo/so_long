@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 15:34:21 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 19:47:20 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:00:21 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	move_down(t_data *data)
 	if (j != data->height && (data->map)[j + 1][i] == '1')
 	{
 		if (data->exit)
-			change_player_texture(data, "./textures/player_exit_closed.xpm");
+			change_player_texture(data, "./textures/gab_exit_closed.xpm");
 		return ;
 	}
 	if (data->exit)
@@ -119,7 +119,7 @@ void	move_down(t_data *data)
 	if (j != data->height && (data->map)[j + 1][i] == 'C')
 		change_exit_texture(data, "./textures/exit_open.xpm");
 	if (j != data->height && (data->map)[j + 1][i] == 'E')
-		check_end(data, "./textures/player_exit_closed.xpm");
+		check_end(data, "./textures/gab_exit_closed.xpm");
 	if (j != data->height && (data->map)[j + 1][i] == 'F')
 		on_destroy(data);
 	(data->map)[j + 1][i] = 'P';
