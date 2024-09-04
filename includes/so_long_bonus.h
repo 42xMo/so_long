@@ -6,7 +6,7 @@
 /*   By: mabdessm <mabdessm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 05:34:38 by mabdessm          #+#    #+#             */
-/*   Updated: 2024/09/02 23:15:34 by mabdessm         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:55:58 by mabdessm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ void			load_enemies(t_data *data, int h, int w);
 void			destroy_images(t_data *data);
 void			move_enemies(t_data *data, int i, int j, int k);
 void			draw_enemies(t_data *data, int i, int j, int k);
+void			end_screen(t_data *data, char *str, char *str2);
 
 #endif
